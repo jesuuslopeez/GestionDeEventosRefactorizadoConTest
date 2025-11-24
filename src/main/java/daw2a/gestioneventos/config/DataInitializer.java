@@ -48,6 +48,10 @@ public class DataInitializer  {
             for(int i=1; i<=5; i++){
                 daw2a.gestioneventos.dominio.Participante participante = new daw2a.gestioneventos.dominio.Participante();
                 participante.setNombre("Participante " + i);
+                participante.setUsuario("usuario" + i); // Mínimo 6 caracteres
+                participante.setContrasenia("password" + i);
+                // Asignar a un evento (round-robin entre los 5 eventos)
+                participante.setEvento(eventoRepo.findById((long)((i % 5) + 1)).orElse(null));
                 participanteRepo.save(participante);
             }
         }

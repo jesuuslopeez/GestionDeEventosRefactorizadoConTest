@@ -33,8 +33,8 @@ public class EventoMapper {
         return new EventoResponseDTO(
                 evento.getId(),
                 evento.getNombre(),
-                evento.getFechaInicio().toString(),
-                evento.getFechaFin().toString(),
+                evento.getFechaInicio() != null ? evento.getFechaInicio().toString() : null,
+                evento.getFechaFin() != null ? evento.getFechaFin().toString() : null,
                 evento.getOrganizador() != null ? evento.getOrganizador().getId() : null
         );
     }
