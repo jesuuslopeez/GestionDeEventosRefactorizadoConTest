@@ -1,29 +1,50 @@
 package daw2a.gestioneventos.servicio;
 
+import daw2a.gestioneventos.dominio.Evento;
 import daw2a.gestioneventos.dominio.Participante;
+import daw2a.gestioneventos.dto.ParticipanteRequestDTO;
+import daw2a.gestioneventos.dto.ParticipanteResponseDTO;
+import daw2a.gestioneventos.exception.EventoNoEncontradoException;
+import daw2a.gestioneventos.mapper.ParticipanteMapper;
+import daw2a.gestioneventos.repo.EventoRepo;
 import daw2a.gestioneventos.repo.ParticipanteRepo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ParticipanteServicio {
     private final ParticipanteRepo participanteRepo;
+    private final EventoRepo eventoRepo;
 
-    public ParticipanteServicio(ParticipanteRepo participanteRepo) {
+    public ParticipanteServicio(ParticipanteRepo participanteRepo, EventoRepo eventoRepo) {
         this.participanteRepo = participanteRepo;
+        this.eventoRepo = eventoRepo;
     }
 
-    public List<Participante> listarParticipantes(){
-        return participanteRepo.findAll();
+    public Page<ParticipanteResponseDTO> listarParticipantes(Pageable pageable){
+        return participanteRepo.findAll(pageable)
+                .map(ParticipanteMapper::toDTO);
     }
 
-    public Participante obtenerPorId(Long id){
-        return participanteRepo.findById(id).orElse(null);
+    public ParticipanteResponseDTO obtenerPorId(Long id){
+        Participante participante = participanteRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Participante no encontrado con id: " + id));
+        return ParticipanteMapper.toDTO(participante);
     }
 
-    public Participante crearParticipante(Participante participante){
-        return participanteRepo.save(participante);
+    public ParticipanteResponseDTO crearParticipante(ParticipanteRequestDTO dto){
+        // Validar que el evento existe
+        Evento evento = eventoRepo.findById(dto.getEventoId())
+                .orElseThrow(() -> new EventoNoEncontradoException(dto.getEventoId()));
+
+        // Mapear DTO a entidad
+        Participante participante = ParticipanteMapper.toEntity(dto);
+        participante.setEvento(evento);
+
+        // Guardar y devolver
+        Participante guardado = participanteRepo.save(participante);
+        return ParticipanteMapper.toDTO(guardado);
     }
 }
 

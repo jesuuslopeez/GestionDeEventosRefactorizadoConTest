@@ -1,11 +1,13 @@
 package daw2a.gestioneventos.servicio;
 
 import daw2a.gestioneventos.dominio.Organizador;
+import daw2a.gestioneventos.dto.OrganizadorRequestDTO;
+import daw2a.gestioneventos.dto.OrganizadorResponseDTO;
+import daw2a.gestioneventos.mapper.OrganizadorMapper;
 import daw2a.gestioneventos.repo.OrganizadorRepo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OrganizadorServicio {
@@ -15,16 +17,21 @@ public class OrganizadorServicio {
         this.organizadorRepo = organizadorRepo;
     }
 
-    public List<Organizador> listarOrganizadores(){
-        return organizadorRepo.findAll();
+    public Page<OrganizadorResponseDTO> listarOrganizadores(Pageable pageable){
+        return organizadorRepo.findAll(pageable)
+                .map(OrganizadorMapper::toDTO);
     }
 
-    public Organizador obtenerPorId(Long id){
-        return organizadorRepo.findById(id).orElse(null);
+    public OrganizadorResponseDTO obtenerPorId(Long id){
+        Organizador organizador = organizadorRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Organizador no encontrado con id: " + id));
+        return OrganizadorMapper.toDTO(organizador);
     }
 
-    public Organizador crearOrganizador(Organizador organizador){
-        return organizadorRepo.save(organizador);
+    public OrganizadorResponseDTO crearOrganizador(OrganizadorRequestDTO dto){
+        Organizador organizador = OrganizadorMapper.toEntity(dto);
+        Organizador guardado = organizadorRepo.save(organizador);
+        return OrganizadorMapper.toDTO(guardado);
     }
 }
 

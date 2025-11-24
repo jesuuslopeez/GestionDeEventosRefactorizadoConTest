@@ -55,9 +55,9 @@ public class EventoServicio {
                 .orElseThrow(() -> new OrganizadorNotFoundException(dto.getOrganizadorId()));
         // Mapear DTO a entidad
         Evento evento = EventoMapper.toEntity(dto);
-        evento.setOrganizador(organizador); // <-- Asignar el organizador al evento
+        evento.setOrganizador(organizador); 
 
-        // Guardar y retornar el evento
+        // Guardar y devolver el evento
         Evento guardado = eventoRepo.save(evento);
         return EventoMapper.toDTO(guardado);
     }
@@ -75,20 +75,6 @@ public class EventoServicio {
         actualizaCamposBasicos(dto, existente);
 
         // Actualizar participantes
-        // En lugar de reemplazar la lista
-        /*if (dto.getParticipantes() != null && !dto.getParticipantes().isEmpty()) {
-            List<Participante> participantesActuales = existente.getParticipantes();
-            if (participantesActuales == null) {
-                participantesActuales = new ArrayList<>();
-            }
-            // Añadir solo los participantes que no estén ya en la lista
-            for (Participante participante : dto.getParticipantes()) {
-                if (!participantesActuales.contains(participante)) {
-                    participantesActuales.add(participante);
-                }
-            }
-            existente.setParticipantes(participantesActuales);
-        }*/
         Evento actualizado = eventoRepo.save(existente);
         return EventoMapper.toDTO(actualizado);
     }
@@ -98,8 +84,6 @@ public class EventoServicio {
         Optional.ofNullable(evento.getDescripcion()).ifPresent(eventoActualizado::setDescripcion);
         Optional.ofNullable(evento.getFechaInicio()).ifPresent(eventoActualizado::setFechaInicio);
         Optional.ofNullable(evento.getFechaFin()).ifPresent(eventoActualizado::setFechaFin);
-        //Optional.ofNullable(evento.getTipo()).ifPresent(eventoActualizado::setTipo);
-
     }
 
 

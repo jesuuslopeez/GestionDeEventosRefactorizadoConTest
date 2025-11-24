@@ -1,12 +1,14 @@
 package daw2a.gestioneventos.web;
 
-import daw2a.gestioneventos.dominio.Participante;
+import daw2a.gestioneventos.dto.ParticipanteRequestDTO;
+import daw2a.gestioneventos.dto.ParticipanteResponseDTO;
 import daw2a.gestioneventos.servicio.ParticipanteServicio;
+import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/participantes")
@@ -19,16 +21,20 @@ public class ParticipanteControlador {
     }
 
     @GetMapping
-    public ResponseEntity<List<Participante>> listar() {
-        // TODO: implementar lógica real de listado de participantes
-        List<Participante> participantes = participanteServicio.listarParticipantes();
+    public ResponseEntity<Page<ParticipanteResponseDTO>> listar(Pageable pageable) {
+        Page<ParticipanteResponseDTO> participantes = participanteServicio.listarParticipantes(pageable);
         return ResponseEntity.ok(participantes);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ParticipanteResponseDTO> obtenerPorId(@PathVariable Long id) {
+        ParticipanteResponseDTO participante = participanteServicio.obtenerPorId(id);
+        return ResponseEntity.ok(participante);
+    }
+
     @PostMapping
-    public ResponseEntity<Participante> crear(@RequestBody Participante participante) {
-        // TODO: implementar lógica real de creación (validaciones, etc.)
-        Participante creado = participanteServicio.crearParticipante(participante);
+    public ResponseEntity<ParticipanteResponseDTO> crear(@Valid @RequestBody ParticipanteRequestDTO participante) {
+        ParticipanteResponseDTO creado = participanteServicio.crearParticipante(participante);
         return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
 }
