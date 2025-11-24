@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="daw2a.gestioneventos.web.EventoControladorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-11-17T13:16:43.903Z" hostname="numenor" time="0.497">
+  <properties/>
+  <testcase name="createShouldReturnCreated()" classname="daw2a.gestioneventos.web.EventoControladorTest" time="0.497"/>
+  <system-out><![CDATA[14:16:38.353 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [daw2a.gestioneventos.web.EventoControladorTest]: EventoControladorTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:16:38.630 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration daw2a.gestioneventos.GestionEventosApplication for test class daw2a.gestioneventos.web.EventoControladorTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-11-17T14:16:39.988+01:00  INFO 17835 --- [GestionEventos] [    Test worker] d.g.web.EventoControladorTest            : Starting EventoControladorTest using Java 21.0.8 with PID 17835 (started by jmsa in /home/jmsa/IESRafaelAlberti/RafaelAlberti25_26/Modulos/DWES/Unidades/UD2/GestionEventos)
+2025-11-17T14:16:39.994+01:00  INFO 17835 --- [GestionEventos] [    Test worker] d.g.web.EventoControladorTest            : No active profile set, falling back to 1 default profile: "default"
+2025-11-17T14:16:43.830+01:00  INFO 17835 --- [GestionEventos] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-11-17T14:16:43.831+01:00  INFO 17835 --- [GestionEventos] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-11-17T14:16:43.839+01:00  INFO 17835 --- [GestionEventos] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 4 ms
+2025-11-17T14:16:43.887+01:00  INFO 17835 --- [GestionEventos] [    Test worker] d.g.web.EventoControladorTest            : Started EventoControladorTest in 5.132 seconds (process running for 7.423)
+]]></system-out>
+  <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (/home/jmsa/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.17.8/f09415827a71be7ed621c7bd02550678f28bc81c/byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>

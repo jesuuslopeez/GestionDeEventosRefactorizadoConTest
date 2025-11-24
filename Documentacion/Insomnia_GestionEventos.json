@@ -1,0 +1,84 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-11-05T00:00:00Z",
+  "__export_source": "insomnia.desktop.app:2025.1.0",
+  "resources": [
+    {
+      "_id": "wrk_gestioneventos",
+      "type": "workspace",
+      "name": "GestionEventos",
+      "description": "Colección para API Gestión de Eventos"
+    },
+    {
+      "_id": "env_base",
+      "type": "environment",
+      "parentId": "wrk_gestioneventos",
+      "name": "Base Environment",
+      "data": {
+        "baseUrl": "http://localhost:8080",
+        "apiPrefix": "/api/v1"
+      }
+    },
+    {
+      "_id": "req_eventos_list",
+      "parentId": "wrk_gestioneventos",
+      "type": "request",
+      "name": "GET Eventos (list/search)",
+      "method": "GET",
+      "url": "{{ baseUrl }}{{ apiPrefix }}/eventos",
+      "headers": [
+        { "name": "Accept", "value": "application/json" }
+      ]
+    },
+    {
+      "_id": "req_evento_get",
+      "parentId": "wrk_gestioneventos",
+      "type": "request",
+      "name": "GET Evento by id",
+      "method": "GET",
+      "url": "{{ baseUrl }}{{ apiPrefix }}/eventos/1",
+      "headers": [ { "name": "Accept", "value": "application/json" } ]
+    },
+    {
+      "_id": "req_evento_create",
+      "parentId": "wrk_gestioneventos",
+      "type": "request",
+      "name": "POST Crear Evento",
+      "method": "POST",
+      "url": "{{ baseUrl }}{{ apiPrefix }}/eventos",
+      "headers": [ { "name": "Content-Type", "value": "application/json" } ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"nombre\":\"Jornada Java\",\"descripcion\":\"Conferencia sobre Java\",\"tipo\":\"CONGRESO\"}"
+      }
+    },
+    {
+      "_id": "req_participante_create",
+      "parentId": "wrk_gestioneventos",
+      "type": "request",
+      "name": "POST Crear Participante",
+      "method": "POST",
+      "url": "{{ baseUrl }}{{ apiPrefix }}/participantes",
+      "headers": [ { "name": "Content-Type", "value": "application/json" } ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"nombre\":\"Ana P\",\"email\":\"ana@example.com\",\"usuario\":\"anap\",\"contrasenia\":\"secreto123\",\"evento\":{\"id\":1}}"
+      }
+    },
+    {
+      "_id": "req_organizador_create",
+      "parentId": "wrk_gestioneventos",
+      "type": "request",
+      "name": "POST Crear Organizador",
+      "method": "POST",
+      "url": "{{ baseUrl }}{{ apiPrefix }}/organizadores",
+      "headers": [ { "name": "Content-Type", "value": "application/json" } ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"nombre\":\"Uni Eventos\"}"
+      }
+    }
+  ]
+}
+
