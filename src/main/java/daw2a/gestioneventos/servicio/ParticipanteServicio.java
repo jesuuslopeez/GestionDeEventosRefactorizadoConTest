@@ -5,6 +5,8 @@ import daw2a.gestioneventos.dominio.Participante;
 import daw2a.gestioneventos.dto.ParticipanteRequestDTO;
 import daw2a.gestioneventos.dto.ParticipanteResponseDTO;
 import daw2a.gestioneventos.exception.EventoNoEncontradoException;
+import daw2a.gestioneventos.exception.ParticipanteNotFoundException;
+import daw2a.gestioneventos.exception.UsuarioYaExisteException;
 import daw2a.gestioneventos.mapper.ParticipanteMapper;
 import daw2a.gestioneventos.repo.EventoRepo;
 import daw2a.gestioneventos.repo.ParticipanteRepo;
@@ -29,11 +31,16 @@ public class ParticipanteServicio {
 
     public ParticipanteResponseDTO obtenerPorId(Long id){
         Participante participante = participanteRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Participante no encontrado con id: " + id));
+                .orElseThrow(() -> new ParticipanteNotFoundException(id));
         return ParticipanteMapper.toDTO(participante);
     }
 
     public ParticipanteResponseDTO crearParticipante(ParticipanteRequestDTO dto){
+        // Validar que el usuario no exista
+        if (participanteRepo.existsByUsuario(dto.getUsuario())) {
+            throw new UsuarioYaExisteException(dto.getUsuario());
+        }
+
         // Validar que el evento existe
         Evento evento = eventoRepo.findById(dto.getEventoId())
                 .orElseThrow(() -> new EventoNoEncontradoException(dto.getEventoId()));
